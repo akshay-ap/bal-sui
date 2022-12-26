@@ -1,0 +1,19 @@
+{
+  "name": "bal-sui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshay-ap/bal-sui.git"
+  },
+  "author": "Akshay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshay-ap/bal-sui/issues"
+  },
+  "homepage": "https://github.com/akshay-ap/bal-sui#readme"
+}
