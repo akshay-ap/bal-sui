@@ -1,0 +1,8 @@
+2022-12-29T14:37:44.779275Z  INFO sui::client_commands:                  Object ID                  |  Gas Value 
+2022-12-29T14:37:44.779294Z  INFO sui::client_commands: ----------------------------------------------------------------------
+2022-12-29T14:37:44.779297Z  INFO sui::client_commands:  0x8344b53a784e9afa0d01f95d4c11ed746d7c6eee | 99999999999290
+2022-12-29T14:37:44.779300Z  INFO sui::client_commands:  0x8d97898dc1a7e45dc73a818b6a007fdd1eced13e | 100000000000000
+2022-12-29T14:37:44.779302Z  INFO sui::client_commands:  0x96f1ad3f5c3abc75eafdd76d2b09f84baf6f0e70 | 100000000000000
+2022-12-29T14:37:44.779321Z  INFO sui::client_commands:  0xebb5e62a61da2161b7b4c2ece19fc1c1e20ddb2f | 100000000000000
+2022-12-29T14:38:17.460619Z  INFO sui::client_commands:                  Object ID                  |  Gas Value 
+2022-12-29T14:38:17.460637Z  INFO sui::client_commands: ----------------------------------------------------------------------

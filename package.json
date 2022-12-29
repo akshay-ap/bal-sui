@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "bal-sui",
   "version": "1.0.0",
   "description": "",
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/akshay-ap/bal-sui/issues"
   },
-  "homepage": "https://github.com/akshay-ap/bal-sui#readme"
+  "homepage": "https://github.com/akshay-ap/bal-sui#readme",
+  "dependencies": {
+    "@mysten/sui.js": "^0.20.0",
+    "dotenv": "^16.0.3"
+  }
 }
