@@ -76,7 +76,7 @@ app.post("/query", async (req, res, next) => {
 
     // TimeRange: { startTime: 0, endTime: 1669039604014000 },
 
-    res.json({ result: result });
+    res.json(result);
   } catch (err) {
     next(err);
   }
@@ -186,8 +186,8 @@ const transformQueryResult = (data) => {
       });
     }
     result.push({
-      timestamp: data[i]["timestamp"],
-      parameters: fields,
+      isoTimestamp: new Date(data[i]["timestamp"]).toISOString(),
+      parameters: parameters,
     });
   }
 
