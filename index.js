@@ -28,15 +28,26 @@ app.post("/execute", async (req, res, next) => {
   try {
     const data = req.body;
     console.log("Execute called with body:", data);
+    const smartContractPath = data.smartContractPath.split("/");
+    const packageObjectId = smartContractPath[0];
+    const module = smartContractPath[1];
 
-    await callMove(
-      data.packageObjectId,
-      data.module,
-      data.function,
+    const { inputs, outputs, functionIdentifier } = data;
+
+    const callArguments = inputs.map((e) => e.value);
+
+    const result = await callMove(
+      packageObjectId,
+      module,
+      functionIdentifier,
       data.typeArguments,
-      data.arguments
+      callArguments
     );
-    res.json({ result: "successful" });
+
+    const transactionDigest =
+      result["EffectsCert"]["certificate"]["transactionDigest"];
+
+    res.json({ transactionHash: transactionDigest });
   } catch (err) {
     next(err);
   }
@@ -45,6 +56,7 @@ app.post("/execute", async (req, res, next) => {
 app.post("/query", async (req, res, next) => {
   try {
     const data = req.body;
+
     const functionIdentifier = data["functionIdentifier"];
     const eventIdentifier = data["eventIdentifier"];
 
@@ -122,6 +134,7 @@ const callMove = async (
     gasBudget: 10000,
   });
   console.log("moveCallTxn", moveCallTxn);
+  return moveCallTxn;
 };
 
 const scanForNewTransactions = async () => {
