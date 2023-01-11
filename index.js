@@ -53,6 +53,26 @@ app.post("/execute", async (req, res, next) => {
   }
 });
 
+app.post("/get-blocks-in-range", async (req, res, next) => {
+  try {
+    const data = req.body;
+    const smartContractPath = data["smartContractPath"];
+    const eventIdentifier = data["eventIdentifier"];
+
+    const start = data["start"];
+    const end = data["end"];
+
+    const filter = data["filter"];
+    const parameters = data["parameters"];
+
+    provider.getTransactions({});
+
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post("/query", async (req, res, next) => {
   try {
     const data = req.body;
@@ -149,12 +169,30 @@ const scanForNewTransactions = async () => {
   console.log("End scanning transactions");
 };
 
-setInterval(scanForNewTransactions, 1000 * 10);
+// setInterval(scanForNewTransactions, 1000 * 10);
 
 const queryEvent = async (eventIdentifier, filter, timeframe, parameters) => {
-  const eventFilter = { MoveEvent: eventIdentifier };
-  const result = await provider.getEvents(eventFilter);
-  return transformQueryResult(result["data"]);
+  // const eventFilter = { MoveEvent: eventIdentifier };
+
+  const eventFilter = {
+    TimeRange: {
+      startTime: Number(timeframe["from"]),
+      endTime: Number(timeframe["to"]),
+    },
+  };
+  const result = await provider.getEvents(
+    eventFilter,
+    null,
+    1000,
+    "descending"
+  );
+
+  const filteredResult = result["data"].filter((e) => {
+    if (e["event"]["moveEvent"] === undefined) return false;
+    if (e["event"]["moveEvent"]["type"] === eventIdentifier) return true;
+  });
+
+  return transformQueryResult(filteredResult);
 };
 
 const queryFunctionInvocation = async (
@@ -183,6 +221,7 @@ const transformQueryResult = (data) => {
       parameters.push({
         name: keys[j],
         value: fields[keys[j]],
+        type: "string",
       });
     }
     result.push({
