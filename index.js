@@ -24,10 +24,10 @@ let lastTransactionScannedCount = await provider.getTotalTransactionNumber();
 
 app.use(bodyParser.json());
 
-app.post("/execute", async (req, res, next) => {
+app.post("/invoke", async (req, res, next) => {
   try {
     const data = req.body;
-    console.log("Execute called with body:", data);
+    console.log("Invoke called with body:", data);
     const smartContractPath = data.smartContractPath.split("/");
     const packageObjectId = smartContractPath[0];
     const module = smartContractPath[1];
@@ -81,7 +81,7 @@ app.post("/query", async (req, res, next) => {
     const eventIdentifier = data["eventIdentifier"];
 
     const filter = data["filter"];
-    const timeframe = data["timeframe"];
+    const timeframe = data["timeFrame"];
     const parameters = data["parameters"];
 
     let result;
@@ -192,7 +192,11 @@ const queryEvent = async (eventIdentifier, filter, timeframe, parameters) => {
     if (e["event"]["moveEvent"]["type"] === eventIdentifier) return true;
   });
 
-  return transformQueryResult(filteredResult);
+  const transformedResult = transformQueryResult(filteredResult);
+
+  // TODO filter
+
+  return transformedResult;
 };
 
 const queryFunctionInvocation = async (
